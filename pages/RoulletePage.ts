@@ -1,4 +1,5 @@
 import { expect, Page, Locator } from "@playwright/test"
+import { ActionItems } from "../enums/ActionItems"
 
 export class RoulletePage {
     readonly page: Page
@@ -38,7 +39,11 @@ export class RoulletePage {
         this.wheelMarkerNonActive = page.locator("div.wheel__marker.wheel__item.absolute.z-10.wheel__item--visible")
        
     }
-
+    
+    /**
+    * This method is used check if last100 actually adds up to 100
+    *
+    */
 
     async assertLast100 () {
         let ct = await this.coinCT.innerText()
@@ -47,32 +52,39 @@ export class RoulletePage {
         let sum = parseInt(ct) + parseInt(bonus) + parseInt(t)
         await expect(sum).toBe(100)
     }
-
+    /**
+    * This method is used wait for timer to go to 0, for red line to change state to rolling and to change state when it stops
+    *
+    */
     async waitForRoll () {
-        await expect(this.timer).toHaveText("0.00")
+        await expect(this.timer).toHaveText(ActionItems.Timer0)
         await expect(this.wheelMarkerNonActive).toBeVisible()
         await expect(this.wheelMarker).toBeVisible()
     }
+
+    /**
+    * This method is used wait for previous roll to change and to see if right coin column is highlighted
+    *
+    */
 
     async assertWin () {
             await this.waitForRoll()
             const elementClass = await this.previousRoll.getAttribute("class")
             if (elementClass !==null) {
-            if (await elementClass.includes("coin-t")) {
-                await expect(this.coinTContainer).toHaveClass("bets-container--open bets-container rounded-lg pt-2 lg:pt-3")
+            if (await elementClass.includes(ActionItems.COIN_T)) {
+                await expect(this.coinTContainer).toHaveClass(ActionItems.CLASS)
                 console.log("T")
             }
-            if (await elementClass.includes("coin-ct")) {
-                await expect(this.coinCTContainer).toHaveClass("bets-container--open bets-container rounded-lg pt-2 lg:pt-3")
+            if (await elementClass.includes(ActionItems.COIN_CT)) {
+                await expect(this.coinCTContainer).toHaveClass(ActionItems.CLASS)
                 console.log("CT")
             }
-            if (await elementClass.includes("coin-bonus")) {
-                await expect(this.coinBonusContainer).toHaveClass("bets-container--open bets-container rounded-lg pt-2 lg:pt-3")
+            if (await elementClass.includes(ActionItems.COIN_BONUS)) {
+                await expect(this.coinBonusContainer).toHaveClass(ActionItems.CLASS)
                 console.log("Bonus")
             }
         }
 
-        
     }
 
 }
