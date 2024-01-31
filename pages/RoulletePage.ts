@@ -194,11 +194,11 @@ export class RoulletePage {
     }
 
     /**
-    * This method is used wait for previous roll to change and to see if right coin column is highlighted
+    * This method is used wait for right badge to be added to previous roll and to see if right coin column is highlighted
     *
     */
 
-    async assertWin () {
+    async assertWinningColumn () {
             await this.waitForRoll()
             const elementClass = await this.previousRoll.getAttribute("class")
             if (elementClass !==null) {

@@ -24,7 +24,7 @@ test.describe.parallel("Products flow", async () =>{
     })
 
     test("User is checking winning bet", async ({page}) => {
-        await roulletePage.assertWin()
+        await roulletePage.assertWinningColumn()
     })
 
     test("User is checking bet buttons", async ({page}) => {
