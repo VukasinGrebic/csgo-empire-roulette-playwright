@@ -35,7 +35,7 @@ test.describe.parallel("Products flow", async () =>{
         await roulletePage.assertBetButtonsFunction()
     })
    
-    test.only("User is checking Daily Roulette Race statistics", async ({page}) => {
+    test("User is checking Daily Roulette Race statistics", async ({page}) => {
         await roulletePage.assertDailyRoulleteRace()
     })
 })

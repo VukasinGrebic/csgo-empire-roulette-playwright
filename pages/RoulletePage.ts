@@ -218,4 +218,12 @@ export class RoulletePage {
 
     }
 
+    /**
+    * This method is used wait for timer to go to 0
+    *
+    */
+    async waitFor0 () {
+        await expect(this.timer).toHaveText(ActionItems.Timer0)
+    }
+
 }

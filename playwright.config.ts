@@ -29,6 +29,12 @@ const config: PlaywrightTestConfig = {
             name: "Webkit",
             use: { browserName: "webkit"}
         },
+        {
+            name: "VisualRegression",
+            use: { browserName: "chromium",
+            viewport: { width: 1280, height: 720}},
+            
+        },
     ]
 }
 
