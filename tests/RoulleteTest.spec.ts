@@ -19,12 +19,23 @@ test.describe.parallel("Products flow", async () =>{
         await homePage.assertHomePage()
     })
 
-    // test("User is checking last 100", async ({page}) => {
-    //     await roulletePage.assertLast100()
-    // })
+    test("User is checking last 100", async ({page}) => {
+        await roulletePage.assertLast100()
+    })
 
     test("User is checking winning bet", async ({page}) => {
         await roulletePage.assertWin()
     })
+
+    test("User is checking bet buttons", async ({page}) => {
+        await roulletePage.assertBetButtons()
+    })
+
+    test("User is checking usability of bet buttons", async ({page}) => {
+        await roulletePage.assertBetButtonsFunction()
+    })
    
+    test.only("User is checking Daily Roulette Race statistics", async ({page}) => {
+        await roulletePage.assertDailyRoulleteRace()
+    })
 })

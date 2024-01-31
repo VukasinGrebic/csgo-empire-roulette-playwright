@@ -4,4 +4,5 @@ export enum ActionItems {
     COIN_CT = "coin-ct",
     COIN_BONUS="coin-bonus",
     Timer0 = "0.00",
+    Timer15 = "15.00",
 }

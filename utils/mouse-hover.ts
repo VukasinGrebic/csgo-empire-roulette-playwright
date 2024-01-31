@@ -15,13 +15,13 @@ export class MouseHover {
 
   async scrollDown() {
     await this.page.evaluate(() => {
-      window.scrollBy(0, 10000)
+      window.scrollBy(0, 1000)
     })
   }
 
   async scrollUp() {
     await this.page.evaluate(() => {
-      window.scrollBy(0, -10000)
+      window.scrollBy(0, -1000)
     })
   }
 }
