@@ -1,5 +1,4 @@
-export enum Constants {
-    URL = "https://csgoempire.com/roulette",
+export enum Items {
     CLASS = "bets-container--open bets-container rounded-lg pt-2 lg:pt-3",
     COIN_T = "coin-t",
     COIN_CT = "coin-ct",

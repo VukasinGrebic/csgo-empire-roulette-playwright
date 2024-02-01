@@ -5,19 +5,19 @@ test.describe.parallel("Roullete Flow", async () =>{
     let mouseHover: MouseHover
 
 
-    test.beforeEach(async ({ page, homePage }) => { 
+    test.beforeEach(async ({ page, roulettePage }) => { 
         mouseHover = new MouseHover(page)
         test.setTimeout(300000)
    
-        await homePage.visit()
-        await homePage.expectHomePage()
+        await roulettePage.visit()
+        await roulettePage.expectHomePage()
     })
 
-    test("User is checking last10", async ({roulettePage}) => {
+    test("User is checking last 10 roulette results", async ({roulettePage}) => {
         await roulettePage.expectLast10Visibility()
     })
 
-    test("User is checking last 100", async ({roulettePage}) => {
+    test("User is checking last 100 roulette results", async ({roulettePage}) => {
         await roulettePage.expectLast100Visibility()
         await roulettePage.expectLast100Calculation()
     })

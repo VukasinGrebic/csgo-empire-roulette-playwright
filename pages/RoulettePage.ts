@@ -1,10 +1,12 @@
 import { expect, Page, Locator } from "@playwright/test"
-import { Constants } from "../enums/Constants"
+import { Items } from "../enums/Items"
+import { URLs } from "../constants/URLs"
 import { MouseHover } from "../utils/mouse-hover"
 
 export class RoulettePage {
     readonly mouseHover: MouseHover
     readonly page: Page
+    readonly win14: Locator
     readonly timer: Locator
     readonly coinCT: Locator
     readonly coinT: Locator
@@ -51,7 +53,8 @@ export class RoulettePage {
     constructor (page: Page) {
         this.page = page
         this.mouseHover = new MouseHover(page)
-        this.timer = page.locator("div.font-numeric.text-2xl")
+        this.win14 = page.getByRole('button', { name: 'Win 14' })
+        this.timer = page.getByText("0.00", { exact:true })
         this.coinCT = page.locator("div.mr-2.text-xxs").first()
         this.coinBonus = page.locator("div.mr-2.text-xxs").nth(1)
         this.coinT = page.locator("div.mr-2.text-xxs").nth(2)
@@ -61,29 +64,46 @@ export class RoulettePage {
         this.previousRoll = page.locator("div.ml-1.inline-block.h-24.w-24.rounded-full").nth(9)
         this.wheelMarker = page.locator("//div[@class='wheel__marker wheel__item absolute z-10']")
         this.wheelMarkerNonActive = page.locator("div.wheel__marker.wheel__item.absolute.z-10.wheel__item--visible")
-        this.last100 = page.locator("div.label.mr-2").first()
+        this.last100 = page.getByText("Last").first()
         this.last10 = page.locator("div.relative.flex.h-24").first()
-        this.btn100 = page.locator("text=+ 100").first()
-        this.btn10 = page.locator("text=+ 10").first()
-        this.btn1 = page.locator("text=+ 1").first()
-        this.btn01 = page.locator("text=+ 0.1").first()
-        this.btn001 = page.locator("text=+ 0.01").first()
-        this.btnHalf = page.locator("text=1/ 2").first()
-        this.btnDouble = page.locator("text=x 2").first()
-        this.btnMax = page.locator("text=Max ").first()
-        this.btnClear = page.locator("text=Clear ").nth(1)
-        this.dailyRouletteRace = page.locator("h3.text-light-1")
-        this.dailyRace1st = page.locator("text = 1st").first()
-        this.dailyRace2nd = page.locator("text = 2nd").first()
-        this.dailyRace3rd = page.locator("text = 3rd").first()
-        this.dailyRace4th = page.locator("text = 4th").first()
-        this.dailyRace5th = page.locator("text = 5th").first()
-        this.dailyRace6th = page.locator("text = 6th").first()
-        this.dailyRace7th = page.locator("text = 7th").first()
-        this.dailyRace8th = page.locator("text = 8th").first()
-        this.dailyRace9th = page.locator("text = 9th").first()
-        this.dailyRace10th = page.locator("text = 10th").first()
+        this.btn100 = page.getByRole('button', { name: "+ 100" })
+        this.btn10 = page.getByRole('button', { name: "+ 10", exact:true })
+        this.btn1 = page.getByRole('button', { name: "+ 1", exact:true })
+        this.btn01 = page.getByRole('button', { name: "+ 0.1" })
+        this.btn001 = page.getByRole('button', { name: "+ 0.01" })
+        this.btnHalf = page.getByRole('button', { name: "1/ 2" })
+        this.btnDouble = page.getByRole('button', { name: "x 2" })
+        this.btnMax = page.getByRole('button', { name: "Max" })
+        this.btnClear = page.getByRole('button', { name: "Clear" })
+        this.dailyRouletteRace = page.getByRole("heading", {name: "Daily Roulette Race"})
+        this.dailyRace1st = page.getByText("1st", {exact:true})
+        this.dailyRace2nd = page.getByText("2nd", {exact:true})
+        this.dailyRace3rd = page.getByText("3rd", {exact:true})
+        this.dailyRace4th = page.getByText("4th", {exact:true})
+        this.dailyRace5th = page.getByText("5th", {exact:true})
+        this.dailyRace6th = page.getByText("6th", {exact:true})
+        this.dailyRace7th = page.getByText("7th", {exact:true})
+        this.dailyRace8th = page.getByText("8th", {exact:true})
+        this.dailyRace9th = page.getByText("9th", {exact:true})
+        this.dailyRace10th = page.getByText("10th", {exact:true})
        
+    }
+
+    /**
+    * This method is used to visit home page
+    *
+    */
+
+    async visit () {
+        await this.page.goto(URLs.base)
+    }
+
+    /**
+    * This method is used to check if we are on right page
+    *
+    */
+    async expectHomePage () {
+        await expect(this.win14).toBeVisible()
     }
 
     /**
@@ -195,7 +215,7 @@ export class RoulettePage {
     *
     */
         async waitFor0 () {
-            await expect(this.timer).toHaveText(Constants.Timer0)
+            await expect(this.timer).toBeVisible
         }
 
     /**
@@ -217,16 +237,16 @@ export class RoulettePage {
             await this.waitForRoll()
             const elementClass = await this.previousRoll.getAttribute("class")
             if (elementClass !==null) {
-            if (await elementClass.includes(Constants.COIN_T)) {
-                await expect(this.coinTContainer).toHaveClass(Constants.CLASS)
+            if (await elementClass.includes(Items.COIN_T)) {
+                await expect(this.coinTContainer).toHaveClass(Items.CLASS)
                 console.log("T")
             }
-            if (await elementClass.includes(Constants.COIN_CT)) {
-                await expect(this.coinCTContainer).toHaveClass(Constants.CLASS)
+            if (await elementClass.includes(Items.COIN_CT)) {
+                await expect(this.coinCTContainer).toHaveClass(Items.CLASS)
                 console.log("CT")
             }
-            if (await elementClass.includes(Constants.COIN_BONUS)) {
-                await expect(this.coinBonusContainer).toHaveClass(Constants.CLASS)
+            if (await elementClass.includes(Items.COIN_BONUS)) {
+                await expect(this.coinBonusContainer).toHaveClass(Items.CLASS)
                 console.log("Bonus")
             }
         }
