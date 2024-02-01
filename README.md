@@ -26,13 +26,13 @@ npm run tests:visualRegression
 ## Structure
 This project consists of the following structure:
 
-/tests: Directory includes tests files (*.spec.ts).
-/pages: Contains classes for each page of the website under test.
-/enums: Contains helpful enumeration definitions.
-/constants: Includes constant values that are used throughout the project.
-/fixtures: Directory includes setup and cleanup files for your tests.
-/utils: Directory includes utility files that can hold helper functions.
-playwright.config.ts : This is the configuration file for playwright.
+* /tests: Directory includes tests files (*.spec.ts).
+* /pages: Contains classes for each page of the website under test.
+* /enums: Contains helpful enumeration definitions.
+* /constants: Includes constant values that are used throughout the project.
+* /fixtures: Directory includes setup and cleanup files for your tests.
+* /utils: Directory includes utility files that can hold helper functions.
+* playwright.config.ts : This is the configuration file for playwright.
 
 ## Best Practices
 This project strictly adheres to the best practices recommended by Playwright including:
