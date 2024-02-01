@@ -3,8 +3,6 @@ const { test } = require('../fixtures/BeforeFixture')
 test.describe.parallel("Roullete Flow", async () =>{
 
     // test.beforeEach(async ({ page, roulettePage }) => { 
-    //     test.setTimeout(300000)
-   
     //     await roulettePage.visit()
     //     await roulettePage.expectHomePage()
     // })

@@ -1,12 +1,7 @@
-const { test, expect } = require('../fixtures/BaseTest')
+const { test, expect } = require('../fixtures/BeforeFixture')
 import { Items } from "../enums/Items"
 
 test.describe.parallel("Visal regression", async () =>{
-
-    test.beforeEach(async ({ roulettePage }) => { 
-        await roulettePage.visit()
-        await roulettePage.expectHomePage()
-    })
 
     test.skip("Checking if roulette is page rendering correctly", async ({roulettePage, page}) => {
             
