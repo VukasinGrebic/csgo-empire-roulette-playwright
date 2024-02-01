@@ -1,5 +1,5 @@
 import { PlaywrightTestConfig } from "@playwright/test"
-import { defineConfig } from "@playwright/test"
+
 
 const config: PlaywrightTestConfig = {
     timeout: 30000,
