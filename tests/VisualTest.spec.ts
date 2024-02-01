@@ -3,7 +3,7 @@ import { Items } from "../enums/Items"
 
 test.describe.parallel("Visal regression", async () =>{
 
-    test.skip("Checking if roulette is page rendering correctly", async ({roulettePage, page}) => {
+    test("Checking if roulette is page rendering correctly", async ({roulettePage, page}) => {
             
             await roulettePage.waitFor0()
 

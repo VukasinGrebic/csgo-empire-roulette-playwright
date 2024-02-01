@@ -19,20 +19,24 @@ const config: PlaywrightTestConfig = {
     projects: [
         {
             name: "Chromium",
-            use: { browserName: "chromium"}
+            use: { browserName: "chromium"},
+            testIgnore: "VisualTest.spec.ts"
         },
         {
             name: "Firefox",
-            use: { browserName: "firefox"}
+            use: { browserName: "firefox"},
+            testIgnore: "VisualTest.spec.ts"
         },
         {
             name: "Webkit",
-            use: { browserName: "webkit"}
+            use: { browserName: "webkit"},
+            testIgnore: "VisualTest.spec.ts"
         },
         {
             name: "VisualRegression",
             use: { browserName: "chromium",
             viewport: { width: 1280, height: 720}},
+            testMatch: "VisualTest.spec.ts"
             
         },
     ]
