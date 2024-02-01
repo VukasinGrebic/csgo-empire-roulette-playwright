@@ -1,17 +1,13 @@
-const { test } = require('../fixtures/BaseTest')
-import { MouseHover } from "../utils/mouse-hover"
+const { test } = require('../fixtures/BeforeFixture')
 
 test.describe.parallel("Roullete Flow", async () =>{
-    let mouseHover: MouseHover
 
-
-    test.beforeEach(async ({ page, roulettePage }) => { 
-        mouseHover = new MouseHover(page)
-        test.setTimeout(300000)
+    // test.beforeEach(async ({ page, roulettePage }) => { 
+    //     test.setTimeout(300000)
    
-        await roulettePage.visit()
-        await roulettePage.expectHomePage()
-    })
+    //     await roulettePage.visit()
+    //     await roulettePage.expectHomePage()
+    // })
 
     test("User is checking last 10 roulette results", async ({roulettePage}) => {
         await roulettePage.expectLast10Visibility()

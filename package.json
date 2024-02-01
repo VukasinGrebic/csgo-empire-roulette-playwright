@@ -4,6 +4,7 @@
   "description": "Automation of roulette with Playwright",
   "main": "index.js",
   "scripts": {
+    "tests:multipleBrowsers": "playwright test --config=playwright.config.ts --project=Chromium --project=Firefox --project=Webkit --reporter=html",
     "tests:chrome": "playwright test --config=playwright.config.ts --project=Chromium --reporter=html",
     "tests:firefox": "playwright test --config=playwright.config.ts --project=Firefox --reporter=html",
     "tests:webkit": "playwright test --config=playwright.config.ts --project=Webkit --reporter=html",
