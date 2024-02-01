@@ -1,8 +1,8 @@
 import { expect, Page, Locator } from "@playwright/test"
-import { ActionItems } from "../enums/ActionItems"
+import { Constants } from "../enums/Constants"
 import { MouseHover } from "../utils/mouse-hover"
 
-export class RoulletePage {
+export class RoulettePage {
     readonly mouseHover: MouseHover
     readonly page: Page
     readonly timer: Locator
@@ -91,7 +91,7 @@ export class RoulletePage {
     *
     */
 
-    async assertLast10 () {
+    async expectLast10Visibility () {
         await expect(this.last10).toBeVisible()
     }
     
@@ -100,9 +100,16 @@ export class RoulletePage {
     *
     */
 
-    async assertLast100 () {
+    async expectLast100Visibility () {
         await expect(this.last100).toBeVisible()
+    }
 
+    /**
+    * This method is used check if last100 is alculated correctly
+    *
+    */
+
+    async expectLast100Calculation () {
         let str = await this.last100.innerText()
         let numStr =str.replace(/\D/g, '')
         let num = parseInt(numStr)
@@ -120,7 +127,7 @@ export class RoulletePage {
     *
     */
 
-    async assertBetButtons () {
+    async expectBetButtons () {
         await expect(this.btnClear).toBeEnabled()
         await expect(this.btn001).toBeEnabled()
         await expect(this.btn01).toBeEnabled()
@@ -150,7 +157,7 @@ export class RoulletePage {
     * This method is used check if the bet input field is clickable
     *
     */
-    async assertBetButtonsFunction () {
+    async expectBetButtonsFunction () {
 
         await this.deleteHiddenClass()
         await expect(this.btn100).toBeVisible()
@@ -168,7 +175,7 @@ export class RoulletePage {
     * This method is used check if Daily Roulette Race is displayed and there are 10 rows in it
     *
     */
-    async assertDailyRoulleteRace () {
+    async expectDailyRoulleteRace () {
         await this.mouseHover.scrollDown()
         await expect(this.dailyRouletteRace).toBeVisible()
         await expect(this.dailyRace1st).toBeVisible()
@@ -184,11 +191,19 @@ export class RoulletePage {
     }
 
     /**
+    * This method is used wait for timer to go to 0
+    *
+    */
+        async waitFor0 () {
+            await expect(this.timer).toHaveText(Constants.Timer0)
+        }
+
+    /**
     * This method is used wait for timer to go to 0, for red line to change state to rolling and to change state when it stops
     *
     */
     async waitForRoll () {
-        await expect(this.timer).toHaveText(ActionItems.Timer0)
+        await this.waitFor0()
         await expect(this.wheelMarkerNonActive).toBeVisible()
         await expect(this.wheelMarker).toBeVisible()
     }
@@ -202,28 +217,22 @@ export class RoulletePage {
             await this.waitForRoll()
             const elementClass = await this.previousRoll.getAttribute("class")
             if (elementClass !==null) {
-            if (await elementClass.includes(ActionItems.COIN_T)) {
-                await expect(this.coinTContainer).toHaveClass(ActionItems.CLASS)
+            if (await elementClass.includes(Constants.COIN_T)) {
+                await expect(this.coinTContainer).toHaveClass(Constants.CLASS)
                 console.log("T")
             }
-            if (await elementClass.includes(ActionItems.COIN_CT)) {
-                await expect(this.coinCTContainer).toHaveClass(ActionItems.CLASS)
+            if (await elementClass.includes(Constants.COIN_CT)) {
+                await expect(this.coinCTContainer).toHaveClass(Constants.CLASS)
                 console.log("CT")
             }
-            if (await elementClass.includes(ActionItems.COIN_BONUS)) {
-                await expect(this.coinBonusContainer).toHaveClass(ActionItems.CLASS)
+            if (await elementClass.includes(Constants.COIN_BONUS)) {
+                await expect(this.coinBonusContainer).toHaveClass(Constants.CLASS)
                 console.log("Bonus")
             }
         }
 
     }
 
-    /**
-    * This method is used wait for timer to go to 0
-    *
-    */
-    async waitFor0 () {
-        await expect(this.timer).toHaveText(ActionItems.Timer0)
-    }
+
 
 }

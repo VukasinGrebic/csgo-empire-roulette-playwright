@@ -1,41 +1,40 @@
-import { test } from "@playwright/test"
-import { HomePage } from "../pages/HomePage"
-import { RoulletePage } from "../pages/RoulletePage"
+const { test } = require('../fixtures/BaseTest')
 import { MouseHover } from "../utils/mouse-hover"
 
-test.describe.parallel("Products flow", async () =>{
-    let homePage: HomePage
-    let roulletePage: RoulletePage
+test.describe.parallel("Roullete Flow", async () =>{
     let mouseHover: MouseHover
 
 
-    test.beforeEach(async ({ page }) => { 
-        homePage = new HomePage(page)
-        roulletePage = new RoulletePage(page)
+    test.beforeEach(async ({ page, homePage }) => { 
         mouseHover = new MouseHover(page)
         test.setTimeout(300000)
    
         await homePage.visit()
-        await homePage.assertHomePage()
+        await homePage.expectHomePage()
     })
 
-    test("User is checking last 100", async ({page}) => {
-        await roulletePage.assertLast100()
+    test("User is checking last10", async ({roulettePage}) => {
+        await roulettePage.expectLast10Visibility()
     })
 
-    test("User is checking winning bet", async ({page}) => {
-        await roulletePage.assertWinningColumn()
+    test("User is checking last 100", async ({roulettePage}) => {
+        await roulettePage.expectLast100Visibility()
+        await roulettePage.expectLast100Calculation()
     })
 
-    test("User is checking bet buttons", async ({page}) => {
-        await roulletePage.assertBetButtons()
+    test("User is checking winning bet", async ({roulettePage}) => {
+        await roulettePage.assertWinningColumn()
     })
 
-    test("User is checking usability of bet buttons", async ({page}) => {
-        await roulletePage.assertBetButtonsFunction()
+    test("User is checking bet buttons", async ({roulettePage}) => {
+        await roulettePage.expectBetButtons()
+    })
+
+    test("User is checking usability of bet buttons", async ({roulettePage}) => {
+        await roulettePage.expectBetButtonsFunction()
     })
    
-    test("User is checking Daily Roulette Race statistics", async ({page}) => {
-        await roulletePage.assertDailyRoulleteRace()
+    test("User is checking Daily Roulette Race statistics", async ({roulettePage}) => {
+        await roulettePage.expectDailyRoulleteRace()
     })
 })

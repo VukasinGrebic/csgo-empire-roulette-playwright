@@ -1,4 +1,5 @@
 import { expect, Locator, Page } from "@playwright/test"
+import { Constants } from "../enums/Constants"
 
 
 export class HomePage {
@@ -11,11 +12,11 @@ export class HomePage {
     }
 
     async visit () {
-        await this.page.goto("https://csgoempire.com/roulette")
+        await this.page.goto(Constants.URL)
     }
 
     
-    async assertHomePage () {
+    async expectHomePage () {
         await expect(this.win).toBeVisible()
     }
 }

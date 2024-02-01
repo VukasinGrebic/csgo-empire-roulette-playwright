@@ -1,29 +1,19 @@
-import { expect, test } from "@playwright/test"
-import { HomePage } from "../pages/HomePage"
-import { RoulletePage } from "../pages/RoulletePage"
-import { MouseHover } from "../utils/mouse-hover"
+const { test, expect } = require('../fixtures/BaseTest')
+import { Constants } from "../enums/Constants"
 
-test.describe.parallel("Products flow", async () =>{
-    let homePage: HomePage
-    let roulletePage: RoulletePage
-    let mouseHover: MouseHover
+test.describe.parallel("Visal regression", async () =>{
 
-
-    test.beforeEach(async ({ page }) => { 
-        homePage = new HomePage(page)
-        mouseHover = new MouseHover(page)
-        roulletePage = new RoulletePage(page)
-        test.setTimeout(300000)
+    test.beforeEach(async ({ homePage }) => { 
         await homePage.visit()
-        await homePage.assertHomePage()
+        await homePage.expectHomePage()
     })
 
-    test.only("Checking if roulette is page rendering correctly", async ({page}) => {
+    test("Checking if roulette is page rendering correctly", async ({roulettePage, page}) => {
             
-            await roulletePage.waitFor0()
+            await roulettePage.waitFor0()
 
             await expect(page).toHaveScreenshot("roullete-page.png", {
-                mask: [await page.locator('div.flex.flex-col.items-center'), await page.locator('css=div.wheel__item.absolute.z-20.flex.h-full.w-full.items-center.justify-center'), await page.locator('div.chat__messages.scroll-y.scroll-y--contain.z-10'), await  page.locator('button.chat-head-button.flex.h-full.w-full.items-center.justify-between.bg-dark-3'), await page.locator('div.bets-container--open.bets-container.rounded-lg.pt-2')],
+                mask: [await page.locator(Constants.PREVIOUS_ROLL), await page.locator(Constants.ROLLING), await page.locator(Constants.CHAT_MESSAGE), await  page.locator(Constants.CHAT_HEAD), await page.locator(Constants.BETS_CONTAINER)],
             })
     
         
